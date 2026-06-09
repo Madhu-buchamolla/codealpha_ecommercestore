@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart</title>
+    <style>
+        body{
+            font-family:Arial;
+            background:#f4f4f4;
+        }
+
+        .cart{
+            width:500px;
+            margin:100px auto;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px gray;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <div style="background:black;padding:15px;">
+    <a href="/" style="color:white;margin-right:20px;">Home</a>
+    <a href="/cart/" style="color:white;margin-right:20px;">Cart</a>
+
+    {% if user.is_authenticated %}
+        <a href="/accounts/logout/" style="color:white;margin-right:20px;">Logout</a>
+    {% else %}
+        <a href="/register/" style="color:white;margin-right:20px;">Register</a>
+        <a href="/accounts/login/" style="color:white;margin-right:20px;">Login</a>
+    {% endif %}
+</div>
+
+<div class="cart">
+    <h1>🛒 Shopping Cart</h1>
+    {% for product in products %}
+    {% if product.image %}
+    <img src="{{ product.image.url }}"
+         width="200"
+         height="150"
+         style="border-radius:10px;">
+    {% endif %}
+    <h2>{{ product.name }}</h2>
+    <p>₹{{ product.price }}</p>
+    <p>{{ product.description }}</p>
+
+    <a href="/remove-from-cart/{{ product.id }}/">
+        <button>Remove</button>
+    </a>
+
+    <hr>
+    
+{% empty %}
+    <p>Your cart is empty.</p>
+{% endfor %}
+    <a href="/">Continue Shopping</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My E-Commerce Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .product {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            width: 70%;
+            border-radius: 10px;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .price {
+            color: green;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        button {
+            background: blue;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: darkblue;
+        }
+    </style>
+</head>
+<body>
+    <div style="background:black; padding:15px;">
+
+    <a href="/" style="color:white; text-decoration:none; margin-right:20px;">
+        Home
+    </a>
+
+    <a href="/cart/" style="color:white; text-decoration:none; margin-right:20px;">
+        Cart
+    </a>
+
+    <a href="/register/" style="color:white; text-decoration:none; margin-right:20px;">
+        Register
+    </a>
+
+    <a href="/accounts/login/" style="color:white; text-decoration:none; margin-right:20px;">
+        Login
+    </a>
+
+    <a href="/accounts/logout/" style="color:white; text-decoration:none;">
+        Logout
+    </a>
+
+</div>
+
+<h1>🛒 My E-Commerce Store</h1>
+
+{% for product in products %}
+<div class="product">
+    {% if product.image %}
+    <img src="{{ product.image.url }}"
+         width="250"
+         height="200"
+         style="border-radius:10px;">
+    {% endif %}
+    <h2>{{ product.name }}</h2>
+    <p class="price">₹{{ product.price }}</p>
+    <p>{{ product.description }}</p>
+    <a href="/add-to-cart/{{ product.id }}/">
+    
+
+    <button onclick="alert('item added Successfully!')">
+        Add to Cart
+    </a>   
+    </button>
+    
+    <a href="/cart/">
+    <button>Go to Cart</button>
+</a>
+    <a href="/product/{{ product.id }}/">View Details</a>
+</div>
+{% endfor %}
+
+
+<script>
+function addToCart(productName) {
+    alert(productName + " added to cart successfully!");
+}
+</script>
+
+</body>
+</html>
