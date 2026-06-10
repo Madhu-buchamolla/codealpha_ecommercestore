@@ -12,6 +12,7 @@ This is a simple E-Commerce Store web application developed using Django. Users 
 - Product Listing
 - Product Detail Page
 - Add to Cart
+- Order Processing
 - Remove from Cart
 - Product Image Display
 - Shopping Cart Management
