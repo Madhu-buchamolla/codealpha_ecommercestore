@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product
 from django.contrib.auth.forms import UserCreationForm
-
-
+from .models import Product, Order
+from django.contrib.auth.decorators import login_required
 def home(request):
     products = Product.objects.all()
     return render(request, 'home.html', {'products': products})
@@ -51,3 +51,20 @@ def remove_from_cart(request, id):
     request.session['cart'] = cart
 
     return redirect('/cart/')
+
+
+@login_required
+def place_order(request):
+    cart = request.session.get('cart', [])
+
+    for product_id in cart:
+        product = Product.objects.get(id=product_id)
+
+        Order.objects.create(
+            user=request.user,
+            product=product
+        )
+
+    request.session['cart'] = []
+
+    return render(request, 'order_success.html')
